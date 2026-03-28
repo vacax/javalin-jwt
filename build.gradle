@@ -1,13 +1,22 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.gradleup.shadow' version '9.0.0-beta12'
 }
 
 group = 'edu.pucmm.pw'
 version = '1.0-SNAPSHOT'
 
-mainClassName = 'edu.pucmm.pw.Main'
+// Configuración de Java 25
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'edu.pucmm.pw.Main'
+}
 
 repositories {
     mavenCentral()
@@ -15,29 +24,29 @@ repositories {
 
 dependencies {
 
-    //Javalin
-    implementation("io.javalin:javalin:6.1.3")
-    implementation 'org.slf4j:slf4j-simple:2.0.11'
+    // Javalin 7.1.0
+    implementation("io.javalin:javalin:7.1.0")
+    implementation 'org.slf4j:slf4j-simple:2.0.16'
 
-    //Procesamiento JSON para Javalin.
-    implementation("com.fasterxml.jackson.core:jackson-core:2.16.1")
-    implementation('com.fasterxml.jackson.core:jackson-databind:2.16.1')
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.1")
+    // Procesamiento JSON para Javalin (Jackson)
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.2")
+    implementation('com.fasterxml.jackson.core:jackson-databind:2.17.2')
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.17.2")
 
-    //Libreria para JWT
-    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
-    implementation 'io.jsonwebtoken:jjwt-impl:0.12.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+    // Librería para JWT (JJWT)
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 
-    //
-    implementation 'net.datafaker:datafaker:2.1.0'
+    // Generación de datos fake
+    implementation 'net.datafaker:datafaker:2.4.2'
 
-    //
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    // Testing
+    testImplementation platform('org.junit:junit-bom:5.11.3')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-shadowJar{
+shadowJar {
     archiveBaseName.set("app")
     archiveClassifier.set('')
     archiveVersion.set('')
