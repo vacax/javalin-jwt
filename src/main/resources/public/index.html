@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javalin JWT Demo - PUCMM - EICT - ICC352 Programación Web</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Demostración JWT con Javalin 7</h1>
+        <p class="subtitle">Proyecto educativo - PUCMM ECT</p>
+    </header>
+
+    <main>
+        <!-- Sección 1: Login y obtención del JWT -->
+        <section class="card" id="seccion-login">
+            <h2>1. Autenticación (Login)</h2>
+            <p>Envía credenciales al endpoint <code>POST /login</code> para obtener un token JWT.</p>
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" value="admin" placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" value="admin" placeholder="admin">
+            </div>
+            <button id="btn-login" onclick="hacerLogin()">Iniciar Sesión</button>
+            <div id="resultado-login" class="resultado hidden"></div>
+        </section>
+
+        <!-- Sección 2: Consultar estudiantes con JWT -->
+        <section class="card" id="seccion-estudiantes">
+            <h2>2. Consultar Estudiantes (JWT)</h2>
+            <p>Llama al endpoint protegido <code>GET /api/estudiante</code> usando el token JWT obtenido.</p>
+            <p class="info">Header enviado: <code>Authorization: Bearer &lt;token&gt;</code></p>
+            <div class="form-group">
+                <label for="jwt-token">Token JWT:</label>
+                <input type="text" id="jwt-token" placeholder="Se llenará automáticamente al hacer login" readonly>
+            </div>
+            <button id="btn-estudiantes" onclick="consultarEstudiantes()" disabled>Consultar Estudiantes</button>
+            <div id="resultado-estudiantes" class="resultado hidden"></div>
+        </section>
+
+        <!-- Sección 3: Endpoint con X-Mi-Token -->
+        <section class="card" id="seccion-api-token">
+            <h2>3. Acceso con Token Personalizado (X-Mi-Token)</h2>
+            <p>Llama al endpoint <code>GET /api-token/info</code> usando un header personalizado.</p>
+            <p class="info">Header enviado: <code>X-Mi-Token: &lt;valor&gt;</code></p>
+            <div class="form-group">
+                <label for="mi-token">Valor de X-Mi-Token:</label>
+                <input type="text" id="mi-token" placeholder="Ingrese el token personalizado">
+            </div>
+            <button id="btn-api-token" onclick="consultarApiToken()">Enviar Petición</button>
+            <div id="resultado-api-token" class="resultado hidden"></div>
+        </section>
+
+        <!-- Sección 4: Logs de peticiones -->
+        <section class="card" id="seccion-logs">
+            <h2>4. Log de Peticiones</h2>
+            <p>Historial de las peticiones HTTP realizadas desde esta página.</p>
+            <button onclick="limpiarLogs()">Limpiar Logs</button>
+            <div id="logs" class="logs"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Javalin JWT Demo - PUCMM - EICT - ICC352 Programación Web | Javalin 7.1.0 + JWT</p>
+    </footer>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
